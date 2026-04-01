@@ -1,0 +1,216 @@
+import Link from "next/link";
+
+const trendingStocks = [
+  { ticker: "ASML", change: "+2.6%", positive: true },
+  { ticker: "NVDA", change: "+1.8%", positive: true },
+  { ticker: "AMAT", change: "-0.4%", positive: false },
+  { ticker: "LRCX", change: "+0.9%", positive: true },
+  { ticker: "KLAC", change: "+1.1%", positive: true },
+];
+
+const features = [
+  {
+    title: "Stock Tracking",
+    description: "Monitor key semiconductor stocks.",
+    icon: "📈",
+  },
+  {
+    title: "Industry Analysis",
+    description: "Deep dives into capex and supply chain trends.",
+    icon: "🔬",
+  },
+  {
+    title: "Technical Learning",
+    description: "Resources for engineers and students.",
+    icon: "⚙️",
+  },
+];
+
+export default function Home() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Navigation */}
+      <nav className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-8">
+              <span className="text-xl font-bold text-white">
+                AI Capex
+              </span>
+              <div className="hidden md:flex items-center gap-6">
+                {["Home", "About", "Investor", "Community", "Engineer", "Student"].map(
+                  (item) => (
+                    <Link
+                      key={item}
+                      href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                      className="text-sm text-gray-300 hover:text-white transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  )
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/signin"
+                className="text-sm text-gray-300 hover:text-white transition-colors"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/subscribe"
+                className="text-sm bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-full transition-colors"
+              >
+                Subscribe
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950/50 via-gray-950 to-gray-950" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+              Insights on Semiconductor Investment
+            </h1>
+            <p className="mt-6 text-lg text-gray-400 max-w-xl">
+              Analyze trends, track key stocks, and learn from industry experts.
+              AI-powered capex analysis for smarter investment decisions.
+            </p>
+            <div className="mt-8 flex gap-4">
+              <Link
+                href="/get-started"
+                className="bg-violet-600 hover:bg-violet-500 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                Get Started
+              </Link>
+              <Link
+                href="/about"
+                className="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-violet-500/50 transition-colors"
+            >
+              <div className="text-3xl mb-3">{feature.icon}</div>
+              <h3 className="text-lg font-semibold text-white">
+                {feature.title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-400">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Trending Stocks & Latest Analysis */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Trending Stocks */}
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-white mb-4">
+              Trending Stocks
+            </h2>
+            <div className="space-y-3">
+              {trendingStocks.map((stock) => (
+                <div
+                  key={stock.ticker}
+                  className="flex items-center justify-between py-2 px-3 bg-gray-800/50 rounded-lg"
+                >
+                  <span className="font-medium text-white">
+                    {stock.ticker}
+                  </span>
+                  <span
+                    className={
+                      stock.positive ? "text-green-400" : "text-red-400"
+                    }
+                  >
+                    {stock.change}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/dashboard"
+              className="mt-6 block w-full text-center bg-violet-600 hover:bg-violet-500 text-white py-3 rounded-lg font-medium transition-colors"
+            >
+              View Dashboard
+            </Link>
+          </div>
+
+          {/* Latest Analysis */}
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-white mb-4">
+              Latest Analysis
+            </h2>
+            <div className="space-y-6">
+              <article>
+                <h3 className="font-semibold text-white hover:text-violet-400 transition-colors cursor-pointer">
+                  Broadcom (AVGO) Q1 FY2026 Earnings — Research Note
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">March 4, 2026</p>
+                <p className="mt-2 text-sm text-gray-400">
+                  After-hours report: Broadcom reported record Q1 revenue of
+                  $19.3 billion, up 29%.
+                </p>
+              </article>
+              <article>
+                <h3 className="font-semibold text-white hover:text-violet-400 transition-colors cursor-pointer">
+                  NVIDIA Q4 FY2026 Earnings Analysis
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 25, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  Correlation to 2026 AI infrastructure spending report.
+                  Post-earnings analysis.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-auto border-t border-gray-800 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-sm text-gray-500">
+              AI Capex &copy; {new Date().getFullYear()}
+            </span>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/subscribe"
+                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                Subscribe
+              </Link>
+              <Link
+                href="/about"
+                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                About
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
