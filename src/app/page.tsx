@@ -12,63 +12,23 @@ const features = [
   {
     title: "Stock Tracking",
     description: "Monitor key semiconductor stocks.",
-    icon: "📈",
+    icon: "\u{1F4C8}",
   },
   {
     title: "Industry Analysis",
     description: "Deep dives into capex and supply chain trends.",
-    icon: "🔬",
+    icon: "\u{1F52C}",
   },
   {
     title: "Technical Learning",
     description: "Resources for engineers and students.",
-    icon: "⚙️",
+    icon: "\u2699\uFE0F",
   },
 ];
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navigation */}
-      <nav className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-8">
-              <span className="text-xl font-bold text-white">
-                AI Capex
-              </span>
-              <div className="hidden md:flex items-center gap-6">
-                {["Home", "About", "Investor", "Community", "Engineer", "Student"].map(
-                  (item) => (
-                    <Link
-                      key={item}
-                      href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                      className="text-sm text-gray-300 hover:text-white transition-colors"
-                    >
-                      {item}
-                    </Link>
-                  )
-                )}
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/signin"
-                className="text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/subscribe"
-                className="text-sm bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-full transition-colors"
-              >
-                Subscribe
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-violet-950/50 via-gray-950 to-gray-950" />
@@ -79,11 +39,10 @@ export default function Home() {
             </h1>
             <p className="mt-6 text-lg text-gray-400 max-w-xl">
               Analyze trends, track key stocks, and learn from industry experts.
-              AI-powered capex analysis for smarter investment decisions.
             </p>
             <div className="mt-8 flex gap-4">
               <Link
-                href="/get-started"
+                href="/about"
                 className="bg-violet-600 hover:bg-violet-500 text-white px-6 py-3 rounded-lg font-medium transition-colors"
               >
                 Get Started
@@ -147,7 +106,7 @@ export default function Home() {
               ))}
             </div>
             <Link
-              href="/dashboard"
+              href="/investor"
               className="mt-6 block w-full text-center bg-violet-600 hover:bg-violet-500 text-white py-3 rounded-lg font-medium transition-colors"
             >
               View Dashboard
@@ -160,57 +119,33 @@ export default function Home() {
               Latest Analysis
             </h2>
             <div className="space-y-6">
-              <article>
-                <h3 className="font-semibold text-white hover:text-violet-400 transition-colors cursor-pointer">
-                  Broadcom (AVGO) Q1 FY2026 Earnings — Research Note
+              <Link href="/broadcom-avgo-q1-fy2026-earnings-research-note" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Broadcom (AVGO) Q1 FY2026 Earnings &mdash; Research Note
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">March 4, 2026</p>
-                <p className="mt-2 text-sm text-gray-400">
-                  After-hours report: Broadcom reported record Q1 revenue of
-                  $19.3 billion, up 29%.
+                <p className="mt-1 text-sm text-gray-500">
+                  March 4, 2026 | After-Hours Report
                 </p>
-              </article>
-              <article>
-                <h3 className="font-semibold text-white hover:text-violet-400 transition-colors cursor-pointer">
+                <p className="mt-2 text-sm text-gray-400">
+                  Broadcom reported record Q1 revenue of $19.3 billion, up 29%.
+                </p>
+              </Link>
+              <Link href="/nvidia-q4-fy2026-earnings-analysis" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
                   NVIDIA Q4 FY2026 Earnings Analysis
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
                   February 25, 2026
                 </p>
                 <p className="mt-2 text-sm text-gray-400">
-                  Correlation to 2026 AI infrastructure spending report.
+                  Correlation to 2026 AI Infrastructure Spending Report.
                   Post-earnings analysis.
                 </p>
-              </article>
+              </Link>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="mt-auto border-t border-gray-800 bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-sm text-gray-500">
-              AI Capex &copy; {new Date().getFullYear()}
-            </span>
-            <div className="flex items-center gap-6">
-              <Link
-                href="/subscribe"
-                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-              >
-                Subscribe
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-              >
-                About
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 }
