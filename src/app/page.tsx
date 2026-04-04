@@ -139,7 +139,61 @@ export default function Home() {
                 </p>
                 <p className="mt-2 text-sm text-gray-400">
                   Correlation to 2026 AI Infrastructure Spending Report.
-                  Post-earnings analysis.
+                </p>
+              </Link>
+              <Link href="/applied-materials-q1-fy2026-earnings-report-linking-to-hyperscaler-ai-spending-surge" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Applied Materials Q1 FY2026 Earnings: Linking to Hyperscaler AI Spending Surge
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 13, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  AMAT Q1 revenue $7.01B with &gt;20% 2026 semi growth implied, aligned with hyperscaler capex surge.
+                </p>
+              </Link>
+              <Link href="/signal-palantir-earnings-implications-for-ai-capex-and-the-supply-chain" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Palantir Earnings: Implications for AI Capex and the Supply Chain
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 7, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  Software-driven, targeted AI capex favoring high-end chips and selective equipment upgrades.
+                </p>
+              </Link>
+              <Link href="/alphabets-massive-175-185b-2026-capex-guidance-a-clear-signal-of-accelerating-ai-infrastructure-demand-exceeding-industry-forecasts" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Alphabet&apos;s Massive $175&ndash;185B 2026 Capex Guidance
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 6, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  A clear signal of accelerating AI infrastructure demand, exceeding industry forecasts.
+                </p>
+              </Link>
+              <Link href="/kla-corporation-klac-earnings-call-analysis-q2-fy2026-results-and-stock-crash-2" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  KLA Corporation (KLAC) Q2 FY2026 Results and Stock Crash
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 3, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  Beat revenue and EPS but stock dropped ~10%. Market panic or durable slowdown?
+                </p>
+              </Link>
+              <Link href="/capex-signal-0-what-this-notebook-is-and-how-to-read-it" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Capex Signal #0 &mdash; What This Notebook Is (and How to Read It)
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  February 1, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  A weekly note on AI infrastructure spending and practical implications for semis.
                 </p>
               </Link>
             </div>
