@@ -119,6 +119,17 @@ export default function Home() {
               Latest Analysis
             </h2>
             <div className="space-y-6">
+              <Link href="/capex-signal-the-supercycle-stress-test-earnings-wars-and-efficiency-shocks" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  The Supercycle Stress Test &mdash; Earnings, Wars, and Efficiency Shocks
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  April 4, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  NVIDIA $68B, Micron 196% growth, Google TurboQuant scare, Iran war supply chain threats. Is the supercycle over?
+                </p>
+              </Link>
               <Link href="/broadcom-avgo-q1-fy2026-earnings-research-note" className="block group">
                 <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
                   Broadcom (AVGO) Q1 FY2026 Earnings &mdash; Research Note
