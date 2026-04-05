@@ -119,6 +119,17 @@ export default function Home() {
               Latest Analysis
             </h2>
             <div className="space-y-6">
+              <Link href="/capex-signal-tariff-shock-april-2026-semiconductors" className="block group">
+                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                  Capex Signal: Tariff Shock &mdash; How the April 2026 Trade War Reshapes AI Infrastructure
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  April 4, 2026
+                </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  Micron $23.9B (+196%), Marvell $11B FY27 target, ASML bookings 2x estimates &mdash; and tariff shock creates entry-point volatility.
+                </p>
+              </Link>
               <Link href="/capex-signal-the-supercycle-stress-test-earnings-wars-and-efficiency-shocks" className="block group">
                 <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
                   The Supercycle Stress Test &mdash; Earnings, Wars, and Efficiency Shocks
