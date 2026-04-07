@@ -21,7 +21,80 @@ export interface StockQuote {
   error?: string;
 }
 
-// Raw shape returned by Yahoo Finance
+// --- Source 1: Yahoo Finance chart endpoint (per ticker, less IP-blocked than quote) ---
+async function fetchYahooChart(ticker: string): Promise<StockQuote | null> {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`;
+  const res = await fetch(url, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+      "Accept": "*/*",
+      "Referer": "https://finance.yahoo.com/",
+    },
+    signal: AbortSignal.timeout(6000),
+  });
+  if (!res.ok) return null;
+
+  const data = await res.json();
+  const meta = data?.chart?.result?.[0]?.meta;
+  if (!meta) return null;
+
+  const price: number = meta.regularMarketPrice ?? meta.chartPreviousClose ?? 0;
+  const prevClose: number = meta.chartPreviousClose ?? meta.previousClose ?? price;
+  const change = price - prevClose;
+  const changePct = prevClose !== 0 ? (change / prevClose) * 100 : 0;
+
+  return {
+    ticker,
+    price,
+    change,
+    changePct,
+    marketCap: meta.marketCap ?? null,
+    volume: meta.regularMarketVolume ?? null,
+    name: meta.shortName ?? meta.longName ?? null,
+  };
+}
+
+// --- Source 2: Financial Modeling Prep free tier (no API key, works from serverless) ---
+interface FMPQuote {
+  symbol?: string;
+  price?: number;
+  change?: number;
+  changesPercentage?: number;
+  marketCap?: number;
+  volume?: number;
+  name?: string;
+}
+
+async function fetchFMP(tickers: string[]): Promise<StockQuote[]> {
+  const symbols = tickers.join(",");
+  const url = `https://financialmodelingprep.com/api/v3/quote-short/${symbols}?apikey=demo`;
+  const res = await fetch(url, {
+    headers: { "Accept": "application/json" },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!res.ok) throw new Error(`FMP: ${res.status}`);
+  const data: FMPQuote[] = await res.json();
+  if (!Array.isArray(data)) throw new Error("FMP: unexpected response");
+
+  const map = new Map<string, FMPQuote>();
+  for (const q of data) { if (q.symbol) map.set(q.symbol, q); }
+
+  return tickers.map((t): StockQuote => {
+    const q = map.get(t);
+    if (!q) return { ticker: t, price: null, change: null, changePct: null, marketCap: null, volume: null, name: null, error: "no data" };
+    return {
+      ticker: t,
+      price: q.price ?? null,
+      change: q.change ?? null,
+      changePct: q.changesPercentage ?? null,
+      marketCap: q.marketCap ?? null,
+      volume: q.volume ?? null,
+      name: q.name ?? null,
+    };
+  });
+}
+
+// --- Source 3: Yahoo Finance quote endpoint (batch, may be blocked but worth trying) ---
 interface YahooQuoteRaw {
   symbol?: string;
   regularMarketPrice?: number;
@@ -32,123 +105,85 @@ interface YahooQuoteRaw {
   shortName?: string;
 }
 
-// Try Yahoo Finance v8 endpoint (often less blocked than v7)
-async function tryYahooV8(tickers: string[]): Promise<YahooQuoteRaw[]> {
-  const symbols = tickers.join("%2C");
-  const url = `https://query2.finance.yahoo.com/v8/finance/quote?symbols=${symbols}&fields=regularMarketPrice%2CregularMarketChange%2CregularMarketChangePercent%2CmarketCap%2CregularMarketVolume%2CshortName`;
-
+async function fetchYahooBatch(tickers: string[]): Promise<StockQuote[]> {
+  const symbols = tickers.join(",");
+  const url = `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,marketCap,regularMarketVolume,shortName&formatted=false`;
   const res = await fetch(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
       "Accept": "application/json",
-      "Accept-Language": "en-US,en;q=0.9",
-      "Referer": "https://finance.yahoo.com/",
-      "Origin": "https://finance.yahoo.com",
-    },
-    signal: AbortSignal.timeout(8000),
-  });
-
-  if (!res.ok) throw new Error(`Yahoo v8: ${res.status}`);
-  const data = await res.json();
-  return data?.quoteResponse?.result ?? [];
-}
-
-// Try Yahoo Finance v7 endpoint
-async function tryYahooV7(tickers: string[]): Promise<YahooQuoteRaw[]> {
-  const symbols = tickers.join(",");
-  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,marketCap,regularMarketVolume,shortName`;
-
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-      "Accept": "*/*",
       "Referer": "https://finance.yahoo.com/",
     },
     signal: AbortSignal.timeout(8000),
   });
-
-  if (!res.ok) throw new Error(`Yahoo v7: ${res.status}`);
+  if (!res.ok) throw new Error(`Yahoo batch: ${res.status}`);
   const data = await res.json();
-  return data?.quoteResponse?.result ?? [];
-}
+  const results: YahooQuoteRaw[] = data?.quoteResponse?.result ?? [];
+  if (results.length === 0) throw new Error("Yahoo batch: empty result");
 
-// Try the Yahoo Finance query2 v7 (different host, sometimes works when query1 is blocked)
-async function tryYahooQuery2V7(tickers: string[]): Promise<YahooQuoteRaw[]> {
-  const symbols = tickers.join(",");
-  const url = `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,marketCap,regularMarketVolume,shortName&formatted=false&lang=en-US&region=US`;
+  const map = new Map<string, YahooQuoteRaw>();
+  for (const q of results) { if (q.symbol) map.set(q.symbol, q); }
 
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-      "Accept": "application/json, text/plain, */*",
-      "Accept-Language": "en-US,en;q=0.5",
-    },
-    signal: AbortSignal.timeout(8000),
-  });
-
-  if (!res.ok) throw new Error(`Yahoo query2 v7: ${res.status}`);
-  const data = await res.json();
-  return data?.quoteResponse?.result ?? [];
-}
-
-function buildQuotes(rawResults: YahooQuoteRaw[], tickers: string[]): StockQuote[] {
-  const resultMap = new Map<string, StockQuote>();
-  for (const q of rawResults) {
-    const ticker = q.symbol ?? "";
-    if (!ticker) continue;
-    resultMap.set(ticker, {
-      ticker,
+  return tickers.map((t): StockQuote => {
+    const q = map.get(t);
+    if (!q) return { ticker: t, price: null, change: null, changePct: null, marketCap: null, volume: null, name: null, error: "no data" };
+    return {
+      ticker: t,
       price: q.regularMarketPrice ?? null,
       change: q.regularMarketChange ?? null,
       changePct: q.regularMarketChangePercent ?? null,
       marketCap: q.marketCap ?? null,
       volume: q.regularMarketVolume ?? null,
       name: q.shortName ?? null,
-    });
-  }
-
-  return tickers.map((t): StockQuote => {
-    return (
-      resultMap.get(t) ?? {
-        ticker: t,
-        price: null,
-        change: null,
-        changePct: null,
-        marketCap: null,
-        volume: null,
-        name: null,
-        error: "no data",
-      }
-    );
+    };
   });
 }
 
 export async function GET() {
-  const errors: string[] = [];
-
-  // Try each Yahoo endpoint in sequence — stop at first success
-  const attempts = [tryYahooV8, tryYahooQuery2V7, tryYahooV7];
-
-  for (const attempt of attempts) {
-    try {
-      const raw = await attempt(TICKERS);
-      if (raw.length === 0) {
-        errors.push(`${attempt.name}: empty result`);
-        continue;
-      }
-      const quotes = buildQuotes(raw, TICKERS);
+  // Strategy 1: Yahoo chart endpoint — fetch all tickers in parallel
+  try {
+    const results = await Promise.all(TICKERS.map(fetchYahooChart));
+    const quotes = results.map((q, i): StockQuote =>
+      q ?? { ticker: TICKERS[i], price: null, change: null, changePct: null, marketCap: null, volume: null, name: null, error: "no data" }
+    );
+    const successCount = quotes.filter(q => q.price !== null).length;
+    if (successCount >= TICKERS.length * 0.7) {
+      // At least 70% success — good enough
       return NextResponse.json(
-        { quotes, fetchedAt: new Date().toISOString(), source: attempt.name },
+        { quotes, fetchedAt: new Date().toISOString(), source: "yahoo-chart" },
         { headers: { "Cache-Control": "no-store, max-age=0" } }
       );
-    } catch (e) {
-      errors.push(e instanceof Error ? e.message : String(e));
     }
+  } catch {
+    // fall through
   }
 
-  // All attempts failed
-  return NextResponse.json(
-    { error: `All sources failed: ${errors.join(" | ")}` },
-    { status: 500, headers: { "Cache-Control": "no-store" } }
-  );
+  // Strategy 2: Yahoo batch quote endpoint
+  try {
+    const quotes = await fetchYahooBatch(TICKERS);
+    const successCount = quotes.filter(q => q.price !== null).length;
+    if (successCount >= TICKERS.length * 0.7) {
+      return NextResponse.json(
+        { quotes, fetchedAt: new Date().toISOString(), source: "yahoo-batch" },
+        { headers: { "Cache-Control": "no-store, max-age=0" } }
+      );
+    }
+  } catch {
+    // fall through
+  }
+
+  // Strategy 3: Financial Modeling Prep
+  try {
+    const quotes = await fetchFMP(TICKERS);
+    return NextResponse.json(
+      { quotes, fetchedAt: new Date().toISOString(), source: "fmp" },
+      { headers: { "Cache-Control": "no-store, max-age=0" } }
+    );
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return NextResponse.json(
+      { error: `All sources failed. Last error: ${msg}` },
+      { status: 500, headers: { "Cache-Control": "no-store" } }
+    );
+  }
 }
