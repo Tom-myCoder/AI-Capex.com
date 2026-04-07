@@ -1,12 +1,5 @@
 import Link from "next/link";
-
-const trendingStocks = [
-  { ticker: "ASML", change: "+2.6%", positive: true },
-  { ticker: "NVDA", change: "+1.8%", positive: true },
-  { ticker: "AMAT", change: "-0.4%", positive: false },
-  { ticker: "LRCX", change: "+0.9%", positive: true },
-  { ticker: "KLAC", change: "+1.1%", positive: true },
-];
+import StockDashboard from "@/components/StockDashboard";
 
 const features = [
   {
@@ -78,147 +71,117 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Stocks & Latest Analysis */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Trending Stocks */}
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <h2 className="text-xl font-bold text-white mb-4">
-              Trending Stocks
-            </h2>
-            <div className="space-y-3">
-              {trendingStocks.map((stock) => (
-                <div
-                  key={stock.ticker}
-                  className="flex items-center justify-between py-2 px-3 bg-gray-800/50 rounded-lg"
-                >
-                  <span className="font-medium text-white">
-                    {stock.ticker}
-                  </span>
-                  <span
-                    className={
-                      stock.positive ? "text-green-400" : "text-red-400"
-                    }
-                  >
-                    {stock.change}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <Link
-              href="/investor"
-              className="mt-6 block w-full text-center bg-violet-600 hover:bg-violet-500 text-white py-3 rounded-lg font-medium transition-colors"
-            >
-              View Dashboard
-            </Link>
-          </div>
+      {/* Stock Dashboard */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <StockDashboard />
+      </section>
 
-          {/* Latest Analysis */}
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <h2 className="text-xl font-bold text-white mb-4">
-              Latest Analysis
-            </h2>
-            <div className="space-y-6">
-              <Link href="/capex-signal-tariff-shock-april-2026-semiconductors" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Capex Signal: Q1 2026 Earnings Sweep &mdash; Memory Supercycle, Custom Silicon, and the Tariff Overhang
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  April 4, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  Micron $23.9B (+196%), Marvell $11B FY27 target, ASML bookings 2x estimates, and the real 2026 trade policy overhang.
-                </p>
-              </Link>
-              <Link href="/capex-signal-the-supercycle-stress-test-earnings-wars-and-efficiency-shocks" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  The Supercycle Stress Test &mdash; Earnings, Wars, and Efficiency Shocks
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  April 4, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  NVIDIA $68B, Micron 196% growth, Google TurboQuant scare, Iran war supply chain threats. Is the supercycle over?
-                </p>
-              </Link>
-              <Link href="/broadcom-avgo-q1-fy2026-earnings-research-note" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Broadcom (AVGO) Q1 FY2026 Earnings &mdash; Research Note
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  March 4, 2026 | After-Hours Report
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  Broadcom reported record Q1 revenue of $19.3 billion, up 29%.
-                </p>
-              </Link>
-              <Link href="/nvidia-q4-fy2026-earnings-analysis" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  NVIDIA Q4 FY2026 Earnings Analysis
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 25, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  Correlation to 2026 AI Infrastructure Spending Report.
-                </p>
-              </Link>
-              <Link href="/applied-materials-q1-fy2026-earnings-report-linking-to-hyperscaler-ai-spending-surge" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Applied Materials Q1 FY2026 Earnings: Linking to Hyperscaler AI Spending Surge
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 13, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  AMAT Q1 revenue $7.01B with &gt;20% 2026 semi growth implied, aligned with hyperscaler capex surge.
-                </p>
-              </Link>
-              <Link href="/signal-palantir-earnings-implications-for-ai-capex-and-the-supply-chain" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Palantir Earnings: Implications for AI Capex and the Supply Chain
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 7, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  Software-driven, targeted AI capex favoring high-end chips and selective equipment upgrades.
-                </p>
-              </Link>
-              <Link href="/alphabets-massive-175-185b-2026-capex-guidance-a-clear-signal-of-accelerating-ai-infrastructure-demand-exceeding-industry-forecasts" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Alphabet&apos;s Massive $175&ndash;185B 2026 Capex Guidance
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 6, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  A clear signal of accelerating AI infrastructure demand, exceeding industry forecasts.
-                </p>
-              </Link>
-              <Link href="/kla-corporation-klac-earnings-call-analysis-q2-fy2026-results-and-stock-crash-2" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  KLA Corporation (KLAC) Q2 FY2026 Results and Stock Crash
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 3, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  Beat revenue and EPS but stock dropped ~10%. Market panic or durable slowdown?
-                </p>
-              </Link>
-              <Link href="/capex-signal-0-what-this-notebook-is-and-how-to-read-it" className="block group">
-                <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
-                  Capex Signal #0 &mdash; What This Notebook Is (and How to Read It)
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  February 1, 2026
-                </p>
-                <p className="mt-2 text-sm text-gray-400">
-                  A weekly note on AI infrastructure spending and practical implications for semis.
-                </p>
-              </Link>
-            </div>
+      {/* Latest Analysis */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+          <h2 className="text-xl font-bold text-white mb-6">
+            Latest Analysis
+          </h2>
+          <div className="space-y-6">
+            <Link href="/capex-signal-tariff-shock-april-2026-semiconductors" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Capex Signal: Q1 2026 Earnings Sweep &mdash; Memory Supercycle, Custom Silicon, and the Tariff Overhang
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                April 4, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Micron $23.9B (+196%), Marvell $11B FY27 target, ASML bookings 2x estimates, and the real 2026 trade policy overhang.
+              </p>
+            </Link>
+            <Link href="/capex-signal-the-supercycle-stress-test-earnings-wars-and-efficiency-shocks" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                The Supercycle Stress Test &mdash; Earnings, Wars, and Efficiency Shocks
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                April 4, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                NVIDIA $68B, Micron 196% growth, Google TurboQuant scare, Iran war supply chain threats. Is the supercycle over?
+              </p>
+            </Link>
+            <Link href="/broadcom-avgo-q1-fy2026-earnings-research-note" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Broadcom (AVGO) Q1 FY2026 Earnings &mdash; Research Note
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                March 4, 2026 | After-Hours Report
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Broadcom reported record Q1 revenue of $19.3 billion, up 29%.
+              </p>
+            </Link>
+            <Link href="/nvidia-q4-fy2026-earnings-analysis" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                NVIDIA Q4 FY2026 Earnings Analysis
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 25, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Correlation to 2026 AI Infrastructure Spending Report.
+              </p>
+            </Link>
+            <Link href="/applied-materials-q1-fy2026-earnings-report-linking-to-hyperscaler-ai-spending-surge" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Applied Materials Q1 FY2026 Earnings: Linking to Hyperscaler AI Spending Surge
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 13, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                AMAT Q1 revenue $7.01B with &gt;20% 2026 semi growth implied, aligned with hyperscaler capex surge.
+              </p>
+            </Link>
+            <Link href="/signal-palantir-earnings-implications-for-ai-capex-and-the-supply-chain" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Palantir Earnings: Implications for AI Capex and the Supply Chain
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 7, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Software-driven, targeted AI capex favoring high-end chips and selective equipment upgrades.
+              </p>
+            </Link>
+            <Link href="/alphabets-massive-175-185b-2026-capex-guidance-a-clear-signal-of-accelerating-ai-infrastructure-demand-exceeding-industry-forecasts" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Alphabet&apos;s Massive $175&ndash;185B 2026 Capex Guidance
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 6, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                A clear signal of accelerating AI infrastructure demand, exceeding industry forecasts.
+              </p>
+            </Link>
+            <Link href="/kla-corporation-klac-earnings-call-analysis-q2-fy2026-results-and-stock-crash-2" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                KLA Corporation (KLAC) Q2 FY2026 Results and Stock Crash
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 3, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Beat revenue and EPS but stock dropped ~10%. Market panic or durable slowdown?
+              </p>
+            </Link>
+            <Link href="/capex-signal-0-what-this-notebook-is-and-how-to-read-it" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Capex Signal #0 &mdash; What This Notebook Is (and How to Read It)
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                February 1, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                A weekly note on AI infrastructure spending and practical implications for semis.
+              </p>
+            </Link>
           </div>
         </div>
       </section>
