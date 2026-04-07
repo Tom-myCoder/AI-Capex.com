@@ -22,6 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} antialiased dark`}>
+      <head>
+        <script
+          defer
+          data-domain="ai-capex.com"
+          src="https://plausible.io/js/script.js"
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-gray-950 text-gray-100 font-sans">
         <Navbar />
         <main className="flex-1">{children}</main>
