@@ -3,14 +3,28 @@ import YahooFinance from "yahoo-finance2";
 
 const yahooFinance = new YahooFinance();
 
-// AI Supply Chain watchlist — compute, equipment, memory, packaging, substrates
+// AI Capex Supply Chain watchlist — updated April 2026
 const TICKERS = [
+  // GPU / AI Chips
   "NVDA", "AMD", "AVGO", "QCOM", "INTC",
-  "AMAT", "ASML", "LRCX", "KLAC", "ONTO",
+  // Memory
   "MU", "WDC",
-  "TSM", "ARM", "MRVL",
-  "ON", "WOLF",
-  "ACLS", "CAMT", "FORM",
+  // Foundry
+  "TSM", "GFS",
+  // Equipment
+  "AMAT", "ASML", "LRCX", "KLAC", "ONTO",
+  // EDA / IP
+  "SNPS", "CDNS", "ARM",
+  // Packaging
+  "AMKR",
+  // Networking / Optical
+  "MRVL", "NOK", "COHR", "LITE", "CIEN",
+  // Power
+  "ON", "WOLF", "MPWR", "BE",
+  // Security / AI Infra
+  "PANW", "CRWD",
+  // Cloud / Hyperscalers
+  "MSFT", "AMZN", "GOOGL", "META", "AAPL", "ORCL", "TSLA",
 ];
 
 export interface StockQuote {
