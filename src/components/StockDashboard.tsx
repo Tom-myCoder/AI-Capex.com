@@ -152,7 +152,7 @@ export default function StockDashboard() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(REFRESH_INTERVAL_MS / 1000);
-  const [sortField, setSortField] = useState<"changePct" | "price" | "marketCap" | "volume">("changePct");
+  const [sortField, setSortField] = useState<"changePct" | "price" | "marketCap" | "volume" | "ticker" | "sector">("changePct");
   const [sortDir, setSortDir] = useState<"desc" | "asc">("desc");
   const [filterSector, setFilterSector] = useState<string | null>(null);
 
@@ -227,14 +227,24 @@ export default function StockDashboard() {
   const sorted = [...visibleQuotes]
     .filter((q) => !filterSector || sectorMap[q.ticker] === filterSector)
     .sort((a, b) => {
+      if (sortField === "ticker") {
+        return sortDir === "asc"
+          ? a.ticker.localeCompare(b.ticker)
+          : b.ticker.localeCompare(a.ticker);
+      }
+      if (sortField === "sector") {
+        const sa = sectorMap[a.ticker] ?? "Custom";
+        const sb = sectorMap[b.ticker] ?? "Custom";
+        return sortDir === "asc" ? sa.localeCompare(sb) : sb.localeCompare(sa);
+      }
       const va = a[sortField] ?? (sortDir === "desc" ? -Infinity : Infinity);
       const vb = b[sortField] ?? (sortDir === "desc" ? -Infinity : Infinity);
-      return sortDir === "desc" ? vb - va : va - vb;
+      return sortDir === "desc" ? (vb as number) - (va as number) : (va as number) - (vb as number);
     });
 
   const toggleSort = (field: typeof sortField) => {
     if (sortField === field) setSortDir((d) => (d === "desc" ? "asc" : "desc"));
-    else { setSortField(field); setSortDir("desc"); }
+    else { setSortField(field); setSortDir(field === "ticker" || field === "sector" ? "asc" : "desc"); }
   };
 
   const SortIcon = ({ field }: { field: typeof sortField }) => {
@@ -391,8 +401,12 @@ export default function StockDashboard() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-800 text-gray-500 text-xs">
-                    <th className="text-left px-4 py-2 font-medium">Ticker</th>
-                    <th className="text-left px-4 py-2 font-medium hidden sm:table-cell">Sector</th>
+                    <th className="text-left px-4 py-2 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => toggleSort("ticker")}>
+                      Ticker <SortIcon field="ticker" />
+                    </th>
+                    <th className="text-left px-4 py-2 font-medium hidden sm:table-cell cursor-pointer hover:text-gray-300 select-none" onClick={() => toggleSort("sector")}>
+                      Sector <SortIcon field="sector" />
+                    </th>
                     <th className="text-right px-4 py-2 font-medium cursor-pointer hover:text-gray-300 select-none" onClick={() => toggleSort("price")}>
                       Price <SortIcon field="price" />
                     </th>
