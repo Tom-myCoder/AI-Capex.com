@@ -30,18 +30,18 @@ export default function CapexSignalApril112026Page() {
         {/* Opening */}
         <p className="text-gray-300 leading-relaxed">
           Buckle up &mdash; this was a heavy week. TSMC just printed one of the best quarters in its history, Micron&apos;s HBM4 ramp is ahead of schedule, and Meta committed{" "}
-          <span className="font-semibold text-white">$21 billion</span> to CoreWeave in a single deal announcement. Meanwhile the macro backdrop got noisier: semiconductor-specific tariff investigations are accelerating, the global 10% baseline tariff went into effect under Section 122, and ASML reports Tuesday (April 15) with the bar set high. The constraint&mdash;intensity&mdash;durability framework still holds, but this week added a new variable: policy whiplash as a genuine supply-chain risk.
+          <span className="font-semibold text-white">$21 billion</span> to CoreWeave in a single deal announcement. Meanwhile the macro backdrop got noisier: semiconductor-specific tariff investigations are accelerating, the global 10% baseline tariff went into effect under Section 122, and ASML reports Wednesday (April 15) with the bar set high. The constraint&mdash;intensity&mdash;durability framework still holds, but this week added a new variable: policy whiplash as a genuine supply-chain risk.
         </p>
 
         {/* ===== TSMC ===== */}
-        <h2 className="text-2xl font-bold text-white mt-12 mb-4">TSMC &mdash; Record Quarter, 30% Full-Year Growth in Sight</h2>
+        <h2 className="text-2xl font-bold text-white mt-12 mb-4">TSMC &mdash; Monthly Revenue Confirms Record Q1, Full Earnings Call April 16</h2>
         <p className="text-gray-300 leading-relaxed">
-          TSMC reported Q1 2026 consolidated revenue of{" "}
-          <span className="font-semibold text-white">$35.71 billion</span>, landing at the very top of its January guidance range ($34.6&ndash;$35.8B) and up{" "}
+          TSMC&apos;s Q1 2026 revenue is effectively confirmed via Taiwan&apos;s mandatory monthly filing (released April 10): Q1 consolidated sales of{" "}
+          <span className="font-semibold text-white">NT$1,134.10 billion (~$35.71 billion)</span>, landing at the very top of the January guidance range ($34.6&ndash;$35.8B) and up{" "}
           <span className="font-semibold text-white">35.1% year-over-year</span>. March alone printed{" "}
-          <span className="font-semibold text-white">NT$415.19 billion</span> &mdash; the highest single month in company history &mdash; up 45% YoY, driven by the continued N2 (2nm) ramp and accelerating AI accelerator orders from Nvidia, AMD, and Apple. Management guided Q1 gross margin at{" "}
-          <span className="font-semibold text-white">63&ndash;65%</span>, operating margin at 54&ndash;56%. Full-year 2026 revenue is tracking close to{" "}
-          <span className="font-semibold text-white">30% growth in USD terms</span>.
+          <span className="font-semibold text-white">NT$415.19 billion</span> &mdash; the highest single month in TSMC&apos;s history &mdash; up 45.2% YoY, driven by the continued N2 (2nm) ramp and AI accelerator demand. The{" "}
+          <span className="font-semibold text-white">full earnings call is April 16</span> (in five days), where we&apos;ll get margin actuals, CoWoS commentary, and updated forward guidance. The gross margin guide from January was{" "}
+          <span className="font-semibold text-white">63&ndash;65%</span> for Q1; the capex budget of $52&ndash;$56B was set at the Q4 2025 call &mdash; both pending confirmation April 16.
         </p>
 
         {/* TSMC table */}
@@ -50,29 +50,29 @@ export default function CapexSignalApril112026Page() {
             <thead>
               <tr className="bg-gray-800">
                 <th className="px-4 py-3 text-left font-semibold text-white">Metric</th>
-                <th className="px-4 py-3 text-left font-semibold text-white">Q1 2026 Actual</th>
-                <th className="px-4 py-3 text-left font-semibold text-white">Guidance / Prior Year</th>
+                <th className="px-4 py-3 text-left font-semibold text-white">Status</th>
+                <th className="px-4 py-3 text-left font-semibold text-white">vs. Guidance / Prior Year</th>
                 <th className="px-4 py-3 text-left font-semibold text-white">Read</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-gray-800">
-                <td className="px-4 py-3">Revenue</td>
-                <td className="px-4 py-3 font-semibold text-white">$35.71B</td>
+                <td className="px-4 py-3">Q1 Revenue (monthly filing)</td>
+                <td className="px-4 py-3 font-semibold text-white">$35.71B ✓ confirmed</td>
                 <td className="px-4 py-3">$34.6&ndash;$35.8B guide</td>
                 <td className="px-4 py-3 text-green-400 font-medium">Top of range</td>
               </tr>
               <tr className="border-b border-gray-800">
                 <td className="px-4 py-3">YoY Growth</td>
-                <td className="px-4 py-3 font-semibold text-white">+35.1%</td>
+                <td className="px-4 py-3 font-semibold text-white">+35.1% ✓ confirmed</td>
                 <td className="px-4 py-3">+38% guided at midpoint</td>
                 <td className="px-4 py-3 text-green-400 font-medium">Strong</td>
               </tr>
               <tr className="border-b border-gray-800">
-                <td className="px-4 py-3">Gross Margin (guided)</td>
-                <td className="px-4 py-3">63&ndash;65%</td>
-                <td className="px-4 py-3">Q4 2025: ~60%</td>
-                <td className="px-4 py-3 text-green-400 font-medium">Expanding</td>
+                <td className="px-4 py-3">Gross Margin Q1</td>
+                <td className="px-4 py-3 text-yellow-400">Pending &mdash; Apr 16</td>
+                <td className="px-4 py-3">63&ndash;65% guided (Jan)</td>
+                <td className="px-4 py-3 text-yellow-400 font-medium">Watch call</td>
               </tr>
               <tr className="border-b border-gray-800">
                 <td className="px-4 py-3">2026 Capex Budget</td>
@@ -153,7 +153,7 @@ export default function CapexSignalApril112026Page() {
         <h2 className="text-2xl font-bold text-white mt-12 mb-4">ASML Q1 2026 Preview &mdash; Earnings April 15 (Watch Closely)</h2>
         <p className="text-gray-300 leading-relaxed">
           ASML reports before the open on{" "}
-          <span className="font-semibold text-white">Tuesday, April 15</span>. The setup: Q1 2026 revenue guidance was EUR 8.2&ndash;8.9B with 51&ndash;53% gross margin. Consensus sits at ~$10B revenue and $7.68&ndash;$7.85 EPS normalized. ASML closed 2025 with{" "}
+          <span className="font-semibold text-white">Wednesday, April 15</span>. The setup: Q1 2026 revenue guidance was EUR 8.2&ndash;8.9B with 51&ndash;53% gross margin. Consensus sits at ~$10B revenue and $7.68&ndash;$7.85 EPS normalized. ASML closed 2025 with{" "}
           <span className="font-semibold text-white">€32.7 billion in net sales</span> (+15% YoY), earnings +28.5%, and a record order backlog approaching{" "}
           <span className="font-semibold text-white">€39 billion</span>.
         </p>
@@ -229,10 +229,10 @@ export default function CapexSignalApril112026Page() {
             </thead>
             <tbody>
               <tr className="border-b border-gray-800">
-                <td className="px-4 py-3 font-medium">TSM Q1 2026</td>
+                <td className="px-4 py-3 font-medium">TSM Q1 2026 (monthly filing)</td>
                 <td className="px-4 py-3">$35.71B revenue</td>
                 <td className="px-4 py-3 text-green-400">+35.1%</td>
-                <td className="px-4 py-3 text-green-400 font-medium">Top of guide; N2 ramping</td>
+                <td className="px-4 py-3 text-green-400 font-medium">Top of guide; full call Apr 16</td>
               </tr>
               <tr className="border-b border-gray-800">
                 <td className="px-4 py-3 font-medium">MU Q2 FY2026</td>
@@ -287,7 +287,7 @@ export default function CapexSignalApril112026Page() {
         <ul className="space-y-3">
           <li className="flex items-start gap-2 text-gray-300 leading-relaxed">
             <span className="text-violet-400 mt-1 shrink-0">&#8250;</span>
-            <span><span className="font-semibold text-white">ASML Q1 2026 (April 15)</span> &mdash; New bookings number is the single most important data point for the WFE cycle. If bookings are 2x consensus (as they were in Q4 2024), that will confirm 2027 equipment demand is already locked in.</span>
+            <span><span className="font-semibold text-white">ASML Q1 2026 (Wednesday, April 15)</span> &mdash; New bookings number is the single most important data point for the WFE cycle. If bookings are 2x consensus (as they were in Q4 2024), that will confirm 2027 equipment demand is already locked in.</span>
           </li>
           <li className="flex items-start gap-2 text-gray-300 leading-relaxed">
             <span className="text-violet-400 mt-1 shrink-0">&#8250;</span>
@@ -295,7 +295,7 @@ export default function CapexSignalApril112026Page() {
           </li>
           <li className="flex items-start gap-2 text-gray-300 leading-relaxed">
             <span className="text-violet-400 mt-1 shrink-0">&#8250;</span>
-            <span><span className="font-semibold text-white">TSMC full earnings call (April 17)</span> &mdash; March monthly revenue has already printed; the call will give us CoWoS allocation detail, N2 yield commentary, and any update to the U.S. Arizona fab ramp timeline.</span>
+            <span><span className="font-semibold text-white">TSMC full earnings call (April 16)</span> &mdash; Q1 revenue is already confirmed via monthly filing ($35.71B); the call gives us Q1 gross/operating margin actuals, CoWoS allocation detail, N2 yield commentary, Q2 guidance, and any update on the U.S. Arizona fab ramp timeline. This is the key event next week.</span>
           </li>
           <li className="flex items-start gap-2 text-gray-300 leading-relaxed">
             <span className="text-violet-400 mt-1 shrink-0">&#8250;</span>
