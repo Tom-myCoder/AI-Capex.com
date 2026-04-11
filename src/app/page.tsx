@@ -83,6 +83,17 @@ export default function Home() {
             Latest Analysis
           </h2>
           <div className="space-y-6">
+            <Link href="/capex-signal-weekly-april-11-2026" className="block group">
+              <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
+                Capex Signal: April 11, 2026 &mdash; TSMC Blows Out Q1, Meta Doubles Down on CoreWeave, Tariff Fog Thickens
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                April 11, 2026
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                TSMC $35.7B (+35%), Micron $23.9B (+196%) with $33.5B Q3 guide, Meta commits $21B to CoreWeave, ASML reports Tuesday with €39B backlog. Section 232 tariff investigation scope and the policy whiplash risk.
+              </p>
+            </Link>
             <Link href="/capex-signal-tariff-shock-april-2026-semiconductors" className="block group">
               <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors">
                 Capex Signal: Q1 2026 Earnings Sweep &mdash; Memory Supercycle, Custom Silicon, and the Tariff Overhang
